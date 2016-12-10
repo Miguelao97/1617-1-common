@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'application'
 
 version = '1.0'
 
@@ -7,10 +8,6 @@ dependencies {
     testCompile fileTree(dir: 'vendor/test', include: '*.jar')
 }
 
-task myTask(type:Exec){
-  println "here's a task"
-  def v = System.getenv("LS_DBCONN_APP_PSQL")
-  commandLine "echo", v
-}
+mainClassName = "pt.isel.ls.apps.http.FirstHttpServer"
 
-test.dependsOn myTask
+task stage(dependsOn: ['clean', 'installApp'])
